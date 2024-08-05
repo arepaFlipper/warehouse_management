@@ -3,7 +3,7 @@
 import { Bell, Menu, Settings, Sun } from "lucide-react";
 import Link from "next/link";
 import { RootState, useAppDispatch, useAppSelector } from "@/app/redux";
-import { setIsSidebarCollapsed } from "@/state";
+import { setIsDarkMode, setIsSidebarCollapsed } from "@/state";
 
 type Props = {}
 
@@ -11,8 +11,11 @@ const Navbar = (props: Props) => {
   const dispatch = useAppDispatch();
 
   const isSidebarCollapsed = useAppSelector((state: RootState) => state.global.isSidebarCollapsed);
-  const toggleSidebar = () => {
-    dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
+  const toggleSidebar = () => dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
+
+  const isDarkMode = useAppSelector((state: RootState) => state.global.isDarkMode);
+  const toggleDarkMode = () => {
+    dispatch(setIsDarkMode(!isDarkMode));
   }
   return (
     <div className="flex justify-between items-center w-full mb-7">
@@ -31,7 +34,7 @@ const Navbar = (props: Props) => {
       <div className="flex justify-between items-center gap-5">
         <div className="hidden md:flex justify-between items-center gap-5">
           <div>
-            <button onClick={() => { }}>
+            <button onClick={toggleDarkMode}>
               <Sun className="cursor-pointer text-gray-500" size={24} />
             </button>
           </div>

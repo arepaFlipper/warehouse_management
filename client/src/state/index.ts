@@ -18,6 +18,8 @@ export const globalSlice = createSlice({
       state.isSidebarCollapsed = action.payload;
     },
     setIsDarkMode: (state, action: PayloadAction<boolean>) => {
+      console.log(`🥁%cindex.ts:21 - action.payload`, 'font-weight:bold; background:#5ca300;color:#fff;'); //DELETEME:
+      console.log(action.payload); // DELETEME:
       state.isDarkMode = action.payload;
     },
   },
