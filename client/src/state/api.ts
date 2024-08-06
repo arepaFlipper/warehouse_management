@@ -8,3 +8,5 @@ export const api = createApi({
     return {}
   },
 });
+
+export const { } = api;
