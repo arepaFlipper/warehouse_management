@@ -21,6 +21,7 @@ services:
       DATABASE_URL: "postgresql://admin:qwerty@db:5432/inventory"
     ports:
       - "3001:3000"
+      - "3002:3002"
     depends_on:
       - db
     healthcheck:

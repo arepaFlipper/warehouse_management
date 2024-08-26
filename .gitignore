@@ -5,3 +5,7 @@ server/dist/
 client/.env/
 server/.env/
 client/.next/
+server/prisma-engines
+.env
+server/flake.lock
+server/.direnv
