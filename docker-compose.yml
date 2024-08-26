@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   db:
     image: postgres:14
@@ -11,5 +10,26 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  app:
+    image: node:latest
+    working_dir: /app/server
+    volumes:
+      - .:/app
+      - /app/server/node_modules # Prevents node_modules from being overwritten by the local directory
+    command: sh -c "npm install && tail -f /dev/null"
+    environment:
+      DATABASE_URL: "postgresql://admin:qwerty@db:5432/inventory"
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
+
 volumes:
   postgres_data:
+
