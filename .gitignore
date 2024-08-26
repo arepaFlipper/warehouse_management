@@ -1,11 +1,10 @@
-client/node_modules/
-server/node_modules/
-client/dist/
-server/dist/
-client/.env/
-server/.env/
+**/node_modules/
+**/node_modules/
+**/dist/
+**/dist/
 client/.next/
 server/prisma-engines
-.env
+**/.env
 server/flake.lock
 server/.direnv
+**/env/**
