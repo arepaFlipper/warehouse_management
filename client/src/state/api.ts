@@ -1,24 +1,24 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface Product {
   productId: string;
   name: string;
   price: number;
-  rating: string;
+  rating?: number;
   stockQuantity: number;
 }
 
 export interface SalesSummary {
-  salesSUmmaryId: string;
+  salesSummaryId: string;
   totalValue: number;
-  chagePercentage?: number;
+  changePercentage?: number;
   date: string;
 }
 
 export interface PurchaseSummary {
-  purcahseSummaryId: string;
-  totalPucahsed: number;
-  chagePercentage?: number;
+  purchaseSummaryId: string;
+  totalPurcahsed: number;
+  changePercentage?: number;
   date: string;
 }
 
@@ -29,7 +29,7 @@ export interface ExpenseSummary {
 }
 
 export interface ExpenseByCategorySummary {
-  expnseByCategorySummaryId: string;
+  expenseByCategorySummaryId: string;
   category: string;
   amount: string;
   date: string;
@@ -49,7 +49,7 @@ export const api = createApi({
   tagTypes: ["DashboardMetrics"],
   endpoints: (build) => {
     return {
-      getDashboardMethics: build.query<DashboardMetrics, void>({
+      getDashboardMetrics: build.query<DashboardMetrics, void>({
         query: () => "/dashboard",
         providesTags: ["DashboardMetrics"],
       }),
@@ -57,4 +57,4 @@ export const api = createApi({
   },
 });
 
-export const { } = api;
+export const { useGetDashboardMetricsQuery } = api;
