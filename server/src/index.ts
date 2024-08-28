@@ -14,9 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 // NOTE: ROUTES
-app.get("/hello", (req, res) => {
-  res.send("hello world 🌏");
-})
+app.get("/hello", (_, res) => { res.send("hello world 🌏"); })
 
 
 // NOTE: SERVER
