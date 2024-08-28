@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cors from 'cors';
+import dashboardRoutes from "./routes/dashboardRoutes";
 
 dotenv.config();
 const app = express();
@@ -15,6 +16,8 @@ app.use(cors());
 
 // NOTE: ROUTES
 app.get("/hello", (_, res) => { res.send("hello world 🌏"); })
+
+app.use("/dashboard", dashboardRoutes);
 
 
 // NOTE: SERVER
