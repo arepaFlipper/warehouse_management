@@ -13,7 +13,7 @@ const CardPopularProducts = () => {
         <>
           <h3 className="text-lg font-semibold px-7 pt-5 pb-2">Popular Products</h3>
           <hr />
-          <div className="overflow-auto h-full">
+          <div className="overflow-auto scrollbar-none h-full">
             {dashboardMetrics?.popularProducts.map((product) => {
               return (
                 <div key={product.productId} className="flex items-center justify-between gap-3 px-5 py-7 border-b">
