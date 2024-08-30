@@ -16,7 +16,7 @@ services:
     volumes:
       - .:/app
       - /app/server/node_modules # Prevents node_modules from being overwritten by the local directory
-    command: sh -c "npm install && tail -f /dev/null"
+    command: sh -c "npm install && npm run dev"
     environment:
       DATABASE_URL: "postgresql://admin:qwerty@db:5432/inventory"
     ports:
