@@ -1,6 +1,7 @@
 import { useGetDashboardMetricsQuery } from "@/state/api";
-import { TrendingUp } from "lucide-react";
+import { BarChart, TrendingUp } from "lucide-react";
 import { useState } from "react";
+import { CartesianGrid, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 type Props = {}
 
@@ -50,9 +51,32 @@ const CardSalesSummary = (props: Props) => {
                   <TrendingUp className="inline w-4 h-4 mr-1" />
                   {averageChangePercentage.toFixed(2)}%
                 </span>
-
               </div>
+              <select className="shadow-sm border border-gray-300 bg-sky-50 p-2 rounded" value={timeframe} onChange={(e) => setTimeframe(e.target.value)}>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
             </div>
+            <ResponsiveContainer width="100%" height={350} className="px-7">
+              <BarChart data={salesData} margin={{ top: 0, right: 0, left: -25, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="" vertical={false} />
+                <XAxis dataKey="date"
+                  tickFormatter={(value) => {
+                    const date = new Date(value);
+                    return `${date.getMonth() + 1}/${date.getDate()}`;
+                  }}
+                />
+                <YAxis
+                  tickFormatter={(value) => {
+                    return `$${(value / 1_000_000).toFixed(0)}m`;
+                  }}
+                  tick={{ fontSize: 12, dx: -1 }}
+                  tickLine={false}
+                  axisLine={false}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </>
       )}
