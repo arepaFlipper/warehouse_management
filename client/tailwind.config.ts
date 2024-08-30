@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import { createThemes } from "tw-colors";
 import colors from "tailwindcss/colors";
+import plugin from "tailwindcss/plugin";
 
 const baseColors = [
   "gray",
@@ -70,7 +71,17 @@ const config: Config = {
       },
     },
   },
-  plugins: [createThemes(themes)],
+  plugins: [createThemes(themes),
+  plugin(function ({ addUtilities }) {
+    addUtilities({
+      '.scrollbar-none': {
+        '&::-webkit-scrollbar': {
+          'display': 'none'
+        }
+      }
+    })
+  })
+  ],
 };
 
 export default config;
