@@ -26,6 +26,10 @@ const CardExpenseSummary = () => {
     ([name, value]) => ({ name, value, })
   )
 
+  const totalExpenses = expenseCategories.reduce((acc, category: { value: number }) => acc + category.value, 0);
+
+  const formattedTotalExpenses = totalExpenses.toFixed(2);
+
   return (
     <div className="row-span-3 bg-white shadow-md rounded-2xl flex flex-col justify-between ">
       {(isLoading) ? (
@@ -34,13 +38,13 @@ const CardExpenseSummary = () => {
         <>
           {/* NOTE: HEADER*/}
           <div>
-            <h2 className="text-lg font-semibold mb-2 px-7 pt-5">
+            <h2 className="text-lg font-semibold mb-2 px-7 pt-5 ">
               Expense Summary
             </h2>
             <hr />
           </div>
-          <div className="xl:flex justify-between pr-7">
-            <div className="relative basis-3/5">
+          <div className="xl:flex justify-between pr-7 ">
+            <div className="relative basis-3/5 ">
               <ResponsiveContainer width="100%" height={140}>
                 <PieChart>
                   <Pie data={expenseCategories} innerRadius={50} outerRadius={60} fill="#8884d8" dataKey="value" nameKey="name" cx="50%" cy="50%" >
@@ -53,6 +57,11 @@ const CardExpenseSummary = () => {
                   </Pie>
                 </PieChart>
               </ResponsiveContainer>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center basis-2/5 ">
+                <span className="font-bold text-xl">
+                  ${formattedTotalExpenses}
+                </span>
+              </div>
             </div>
           </div>
         </>
