@@ -63,6 +63,18 @@ const CardExpenseSummary = () => {
                 </span>
               </div>
             </div>
+            {/* NOTE: LABELS */}
+            <ul className="flex flex-col justify-around items-center xl:items-start py-5 gap-3">
+              {expenseCategories.map((entry, index) => {
+                return (
+                  <li key={`legend-${index}`} className="flex items-center text-xs">
+                    <span className="mr-2 w-3 h-3 rounded-full" style={{ backgroundColor: colors[index % colors.length] }}>
+                    </span>
+                    {entry.name}
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </>
       )}
