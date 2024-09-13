@@ -1,7 +1,7 @@
 import { useGetDashboardMetricsQuery, ExpenseByCategorySummary } from '@/state/api';
-import { Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
 
-const clrs = ["#00C49F", "#0088FE", "#FFBB28"]
+const colors = ["#00C49F", "#0088FE", "#FFBB28"]
 
 type ExpenseSums = {
   [category: string]: number;
@@ -44,6 +44,11 @@ const CardExpenseSummary = () => {
               <ResponsiveContainer width="100%" height={140}>
                 <PieChart>
                   <Pie data={expenseCategories} innerRadius={50} outerRadius={60} fill="#8884d8" dataKey="value" nameKey="name" cx="50%" cy="50%" >
+                    {expenseCategories.map((entry, index) => {
+                      return (
+                        <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                      )
+                    })}
 
                   </Pie>
                 </PieChart>
