@@ -25,7 +25,7 @@ const StatCard = ({ title, primaryIcon, details, dateRange }: StatCardProps) => 
     return (value >= 0) ? "text-green-500" : "text-red-500";
   }
   return (
-    <div className="md:row-span-1 xl:row-span-2 bg-gray-200 col-span-1 shadow-md rounded-2xl flex flex-col justify-between">
+    <div className="md:row-span-1 xl:row-span-2 bg-gray-100 col-span-1 shadow-md rounded-2xl flex flex-col justify-between">
       {/* HEADER */}
       <div>
         <div className="flex justify-between items-center mb-2 px-5 pt-4">
