@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import cors from 'cors';
 import dashboardRoutes from "./routes/dashboardRoutes";
 import productRoutes from "./routes/productRoutes";
+import userRoutes from "./routes/userRoutes";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ app.get("/hello", (_, res) => { res.send("hello world 🌏"); })
 
 app.use("/dashboard", dashboardRoutes);
 app.use("/products", productRoutes);
+app.use("/users", userRoutes);
 
 
 // NOTE: SERVER
