@@ -43,6 +43,32 @@ const Expenses = (props: Props) => {
         </p>
       </div>
 
+      {/* NOTE: HEADER */}
+      <div className="flex flex-col md:flex-row justify-between gap-4 ">
+        <div className="w-full md:w-1/3 bg-white shadow rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-4">
+            Filter by Category and Date
+          </h3>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="category" className={classNames.label}>Category</label>
+              <select
+                id="category"
+                name="category"
+                className={classNames.selectInput}
+                defaultValue="All"
+                onChange={(event) => setSelectedCategory(event.target.value)}
+              >
+                {["All", "Office", "Professional", "Salaries"].map((opt) => {
+                  return (
+                    <option key={opt}>{opt}</option>
+                  )
+                })}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   );
