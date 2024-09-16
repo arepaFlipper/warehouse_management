@@ -1,10 +1,21 @@
 "use client";
 
-import { useGetExpensesByCategoryQuery } from "@/state/api";
+import { ExpenseByCategorySummary, useGetExpensesByCategoryQuery } from "@/state/api";
 import { useMemo, useState } from "react";
 import Header from "../(components)/Header";
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 type Props = {}
+
+type AggregatedDataItem = {
+  name: string;
+  color?: string;
+  amount: number;
+};
+
+type AggregatedData = {
+  [category: string]: AggregatedDataItem
+};
 
 const Expenses = (props: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -15,11 +26,37 @@ const Expenses = (props: Props) => {
   const { data: expensesData, isLoading, isError } = useGetExpensesByCategoryQuery();
 
   const expenses = useMemo(() => expensesData ?? [], [expensesData]);
+
+  const parseDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toISOString().split("T")[0];
+  };
+
+  const aggregatedData: AggregatedDataItem[] = useMemo(() => {
+    const filtered: AggregatedData = expenses.filter((data: ExpenseByCategorySummary) => {
+      const matchesCategory = selectedCategory === "ALl" || data.category === selectedCategory;
+      const dataDate = parseDate(data.date);
+      const matchesDate = !startDate || !endDate || (dataDate >= startDate && dataDate <= endDate);
+      return matchesCategory && matchesDate;
+    }).reduce((acc: AggregatedData, data: ExpenseByCategorySummary) => {
+      const amount = parseInt(data.amount);
+      if (!acc[data.category]) {
+        acc[data.category] = { name: data.category, amount: 0 };
+        acc[data.category].color = `#${Math.floor(Math.random() * 16777215).toString(16)}`
+        acc[data.category].amount += amount;
+      }
+      return acc;
+    }, {});
+    return Object.values(filtered);
+  }, [expenses, selectedCategory, startDate, endDate]);
+
   if (isLoading) {
     return (
       <div className="py-4">Loading...</div>
     );
   };
+
+
 
   if (isError || !expensesData) {
     return (
@@ -50,6 +87,8 @@ const Expenses = (props: Props) => {
             Filter by Category and Date
           </h3>
           <div className="space-y-4">
+
+            {/* NOTE: CATEGORY */}
             <div>
               <label htmlFor="category" className={classNames.label}>Category</label>
               <select
@@ -66,6 +105,59 @@ const Expenses = (props: Props) => {
                 })}
               </select>
             </div>
+
+            {/* NOTE: START DATE */}
+            <div>
+              <label htmlFor="start_date" className={classNames.label}>Start Date</label>
+              <input
+                type="date"
+                name="start_date"
+                id="start_date"
+                className={classNames.selectInput}
+                onChange={(event) => setStartDate(event.target.value)}
+              />
+            </div>
+
+            {/* NOTE: END DATE */}
+            <div>
+              <label htmlFor="end_date" className={classNames.label}>End Date</label>
+              <input
+                type="date"
+                name="end_date"
+                id="end_date"
+                className={classNames.selectInput}
+                onChange={(event) => setEndDate(event.target.value)}
+              />
+            </div>
+
+            {/* NOTE: PIE CHART */}
+            <div className="flex-grow bg-white shadow rounded-lg p-4 md:p-6 ">
+              <ResponsiveContainer width="100%" height={400}>
+                <PieChart>
+                  <Pie
+                    data={aggregatedData}
+                    cx="50%"
+                    cy="50%"
+                    label
+                    outerRadius={150}
+                    fill="#8884d8"
+                    dataKey="amount"
+                    onMouseEnter={(_, index) => setActiveIndex(index)}
+                  >
+                    {aggregatedData.map((entry: AggregatedDataItem, index: number) => {
+                      return (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={(index === activeIndex) ? "rgb(29,78,216)" : entry.color}
+                        />
+                      )
+                    })}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       </div>
@@ -75,3 +167,4 @@ const Expenses = (props: Props) => {
 }
 
 export default Expenses
+
