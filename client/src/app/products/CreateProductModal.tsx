@@ -7,6 +7,7 @@ type ProductFormData = {
   price: number;
   stockQuantity: number;
   rating: number;
+  productId: string;
 };
 
 type CreateProductModalProps = {
@@ -20,13 +21,14 @@ const CreateProductModal = ({ isOpen, onClose, onCreate }: CreateProductModalPro
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onCreate(formData);
+    onCreate({ ...formData, productId: v4() });
     onClose();
   }
 
   if (!isOpen) {
     return null;
   }
+
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
@@ -88,8 +90,8 @@ const CreateProductModal = ({ isOpen, onClose, onCreate }: CreateProductModalPro
           />
 
           {/* NOTE: RATING */}
-          <label htmlFor="stockQuantity" className={labelCssStyles}>
-            Stock Quantity
+          <label htmlFor="rating" className={labelCssStyles}>
+            Rating
           </label>
           <input
             type="number"
