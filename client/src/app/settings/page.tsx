@@ -49,10 +49,25 @@ const Settings = () => {
                         checked={setting.value as boolean}
                         onChange={() => handleToggleChange(index)}
                       />
+                      <div
+                        className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-blue-400 peer-focus:ring-4 
+                        transition peer-checked:after:translate-x-full peer-checked:after:border-white 
+                        after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white 
+                        after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+                        peer-checked:bg-blue-600"
+                      ></div>
                     </label>
                   ) : (
-                    <label>
-                    </label>
+                    <input
+                      type="text"
+                      className="px-4 py-2 border rounded-lg text-gray-500 focus:outline-none focus:border-blue-500 "
+                      value={setting.value as string}
+                      onChange={(event) => {
+                        const settingsCopy = [...userSettings];
+                        settingsCopy[index].value = event.target.value;
+                        setUserSettings(settingsCopy);
+                      }}
+                    />
                   )}</td>
                 </tr>
               );
