@@ -43,7 +43,8 @@ const CreateProductModal = ({ isOpen, onClose, onCreate }: CreateProductModalPro
     <div className="fixed inset-0 bg-reay-600 bg-opacity-50 overflow-y-auto h-full w-full z-20 ">
       <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white ">
         <Header name="+ New Product" />
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="mt-5">
+          {/* NOTE: PRODUCT NAME */}
           <label htmlFor="productName" className={labelCssStyles}>
             Product Name
           </label>
@@ -56,6 +57,53 @@ const CreateProductModal = ({ isOpen, onClose, onCreate }: CreateProductModalPro
             className="block w-full mb-2 p-2 border-gray-500 border-2 rounded-md "
             required
           />
+
+
+          {/* NOTE: PRICE */}
+          <label htmlFor="productPrice" className={labelCssStyles}>
+            Price
+          </label>
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            onChange={handleChange}
+            value={formData.price}
+            className="block w-full mb-2 p-2 border-gray-500 border-2 rounded-md "
+            required
+          />
+
+          {/* NOTE: Stock Quantity */}
+          <label htmlFor="stockQuantity" className={labelCssStyles}>
+            Stock Quantity
+          </label>
+          <input
+            type="number"
+            name="stockQuantity"
+            placeholder="stock Quantity"
+            onChange={handleChange}
+            value={formData.stockQuantity}
+            className="block w-full mb-2 p-2 border-gray-500 border-2 rounded-md "
+            required
+          />
+
+          {/* NOTE: RATING */}
+          <label htmlFor="stockQuantity" className={labelCssStyles}>
+            Stock Quantity
+          </label>
+          <input
+            type="number"
+            name="rating"
+            placeholder="Rating"
+            onChange={handleChange}
+            value={formData.rating}
+            className="block w-full mb-2 p-2 border-gray-500 border-2 rounded-md "
+            required
+          />
+
+          {/* NOTE: ACTIONS */}
+          <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 " >Create</button>
+          <button type="button" onClick={onClose} className="ml-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700 " >Create</button>
         </form>
       </div>
     </div>
