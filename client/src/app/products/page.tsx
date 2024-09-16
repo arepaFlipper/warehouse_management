@@ -70,6 +70,7 @@ const Products = () => {
           )
         }))}
       </div>
+      {/* NOTE: MODAL */}
     </div>
   )
 }
