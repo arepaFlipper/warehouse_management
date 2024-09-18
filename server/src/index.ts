@@ -27,7 +27,7 @@ app.use("/expenses", expenseRoutes);
 
 
 // NOTE: SERVER
-const port = process.env.PORT || 3002;
-app.listen(port, (): void => {
+const port = Number(process.env.PORT) || 3002;
+app.listen(port, "0.0.0.0", (): void => {
   console.log(`🎙️%cindex.ts:19 - running on port ${port}`, 'font-weight:bold; background:#56a900;color:#fff;'); //DELETEME:
 })
