@@ -60,9 +60,9 @@ const Sidebar = () => {
         <Image
           src="https://s3-warehouse-storage.s3.us-east-2.amazonaws.com/profile.jpg"
           alt="warehouse-logo"
-          width={50}
-          height={50}
-          className="rounded-full h-full object-cover"
+          width={27}
+          height={27}
+          className="rounded w-8"
         />
 
         <h1 className={`font-extrabold text-2xl ${(isSidebarCollapsed) ? "hidden" : "block"}`}>Warehouse Stock</h1>
